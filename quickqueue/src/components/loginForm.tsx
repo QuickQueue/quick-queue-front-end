@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useState } from 'react';
 
-export const loginForm: React.FunctionComponent<any> = (props) => {
+export const LoginForm: React.FunctionComponent<any> = (props) => {
 
   const [username, changeUsername] = useState("")
   const [password, changePassword] = useState("")
