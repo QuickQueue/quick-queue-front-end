@@ -1,10 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { loginForm } from './components/loginForm';
 
 function App() {
   return (
     <div className="App">
+      <loginForm/>
       <header className="App-header">
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
