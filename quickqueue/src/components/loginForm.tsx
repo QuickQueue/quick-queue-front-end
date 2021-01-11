@@ -1,5 +1,7 @@
 import React, { SyntheticEvent, useState } from 'react';
 import axios from 'axios';
+import '../styles/loginForm.css'
+import logo from '../assets/LogoTemp.png'
 
 export const LoginForm: React.FunctionComponent<any> = (props) => {
 
@@ -49,7 +51,11 @@ export const LoginForm: React.FunctionComponent<any> = (props) => {
 
   return (
 
-    <form onSubmit={submitLogin}>
+    <form className='loginForm' onSubmit={submitLogin}>
+
+      <img className='logo' src={logo} alt="Temp Logo"/>
+
+      <h2 className='loginHeader'>Welcome Back!</h2>
 
       <div className='loginWrapper'>
 
@@ -84,7 +90,7 @@ export const LoginForm: React.FunctionComponent<any> = (props) => {
         <button
           className='loginButton'
           type="submit">
-          Login
+          Let's Shop!
             </button>
 
       </div>
