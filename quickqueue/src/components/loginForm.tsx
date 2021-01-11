@@ -1,10 +1,12 @@
 import React, { SyntheticEvent, useState } from 'react';
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import '../styles/loginForm.css'
 import logo from '../assets/LogoTemp.png'
 
 export const LoginForm: React.FunctionComponent<any> = (props) => {
 
+  const history = useHistory();
 
   const [username, changeUsername] = useState("")
   const [password, changePassword] = useState("")
@@ -17,31 +19,35 @@ export const LoginForm: React.FunctionComponent<any> = (props) => {
     changePassword(e.target.value)
   }
 
+  function validateForm() {
+    return username.length > 0 && password.length > 0;
+  }
+
   const submitLogin = async (e: SyntheticEvent) => {
 
     e.preventDefault()
 
     let user = {
 
-      password : password,
-      username : username
-  
+      password: password,
+      username: username
+
     }
 
     //send username and password to a remote location to get the user info/auth token
     try {
       console.log(user)
-      axios.post('http://localhost:8080/customers/login', JSON.stringify(user), { 
+      axios.post('http://localhost:8080/customers/login', JSON.stringify(user), {
         headers: {
-        'Content-Type': 'application/json'
-      }})
+          'Content-Type': 'application/json'
+        }
+      })
         .then(res => {
 
-          console.log(res)
-          console.log(res.data)
+          history.push("/store")
 
         })
-      
+
     } catch (e) {
       changePassword("")
 
@@ -53,7 +59,7 @@ export const LoginForm: React.FunctionComponent<any> = (props) => {
 
     <form className='loginForm' onSubmit={submitLogin}>
 
-      <img className='logo' src={logo} alt="Temp Logo"/>
+      <img className='logo' src={logo} alt="Temp Logo" />
 
       <h2 className='loginHeader'>Welcome Back!</h2>
 
@@ -88,10 +94,11 @@ export const LoginForm: React.FunctionComponent<any> = (props) => {
       <div className='buttonWrapper'>
 
         <button
+          disabled={!validateForm()}
           className='loginButton'
           type="submit">
           Let's Shop!
-            </button>
+        </button>
 
       </div>
 
