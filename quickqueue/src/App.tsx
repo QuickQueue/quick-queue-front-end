@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import './App.css';
 import { LoginForm } from './components/LoginForm'
 import { StoreFront } from './components/StoreFront'
-import { User } from './Models/Users';
+import { User } from './models/Users';
 
 export const UserContext = React.createContext<any>(undefined);
 
