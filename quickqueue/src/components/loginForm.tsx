@@ -1,10 +1,18 @@
 import React, { SyntheticEvent, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
-import '../styles/loginForm.css'
-import logo from '../assets/LogoTemp.png'
+import '../styles/loginForm.css';
+import logo from '../assets/LogoTemp.png';
+import { User } from '../Models/Users';
+interface ILoginProps {
 
-export const LoginForm: React.FunctionComponent<any> = (props) => {
+  updateCurrentUser: (u: User) => void
+  currentUser: User
+
+}
+
+export const LoginForm: React.FunctionComponent<ILoginProps> = (props) => {
+
 
   const history = useHistory();
 
@@ -25,25 +33,27 @@ export const LoginForm: React.FunctionComponent<any> = (props) => {
 
   const submitLogin = async (e: SyntheticEvent) => {
 
-    e.preventDefault()
+    let credentials = {
 
-    let user = {
-
-      password: password,
-      username: username
+      username: username,
+      password: password
 
     }
 
+    e.preventDefault()
+
     //send username and password to a remote location to get the user info/auth token
     try {
-      console.log(user)
-      axios.post('http://localhost:8080/customers/login', JSON.stringify(user), {
+
+        axios.post('http://localhost:8080/customers/login', JSON.stringify(credentials), {
         headers: {
           'Content-Type': 'application/json'
         }
       })
         .then(res => {
 
+          let user = res.data
+          props.updateCurrentUser(user)
           history.push("/store")
 
         })
