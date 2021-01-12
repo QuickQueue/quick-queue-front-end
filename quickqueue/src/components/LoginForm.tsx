@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import '../styles/LoginForm.css';
 import logo from '../assets/LogoTemp.png';
-import { User } from '../Models/Users';
+import { User } from '../models/Users';
 interface ILoginProps {
 
   updateCurrentUser: (u: User) => void
