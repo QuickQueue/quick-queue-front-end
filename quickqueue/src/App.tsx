@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { LoginForm } from "./components/LoginForm";
 import { NavBar } from "./components/NavBar";
-import { ProductDisplay } from "./components/ProductDisplay";
 import { StoreFront } from "./components/StoreFront";
 import { User } from "./models/Users";
 
