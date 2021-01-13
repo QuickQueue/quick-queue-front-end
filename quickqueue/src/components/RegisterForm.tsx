@@ -19,7 +19,6 @@ export const RegisterForm: React.FunctionComponent<IRegisterProps> = (props) => 
   const [firstName, changeFirstName] = useState("");
   const [lastName, changeLastName] = useState("");
   const [email, changeEmail] = useState("");
-  const [role, changeRole] = useState("");
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     changeUsername(e.target.value);
@@ -35,9 +34,6 @@ export const RegisterForm: React.FunctionComponent<IRegisterProps> = (props) => 
   };
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     changeEmail(e.target.value);
-  };
-  const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    changeRole(e.target.value);
   };
 
   function validateForm() {
@@ -80,9 +76,9 @@ export const RegisterForm: React.FunctionComponent<IRegisterProps> = (props) => 
           }
         )
         .then((res) => {
-          let user = res.data;
-          props.updateCurrentUser(user);
-          history.push("/store");
+          // let user = res.data;
+          // props.updateCurrentUser(user);
+          history.push("/login");
         });
     } catch (e) {
       alert("Something went wrong")
