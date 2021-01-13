@@ -26,7 +26,7 @@ function App() {
             </Route>
 
             <Route path="/register">
-              <RegisterForm />
+              <RegisterForm currentUser={user} updateCurrentUser={changeUser}/>
             </Route>
               <Route path="/" render={() => <h1>No path was chosen</h1>} />
           </Switch>
