@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { LoginForm } from "./components/LoginForm";
-<<<<<<< HEAD
-import { NavBar } from "./components/NavBar";
-=======
->>>>>>> master
 import { StoreFront } from "./components/StoreFront";
 import { User } from "./models/Users";
 import { SearchItem } from "./components/SearchItem";
