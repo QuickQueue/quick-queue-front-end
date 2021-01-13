@@ -15,9 +15,10 @@ function App() {
   return (
     <div className="App">
       <UserContext.Provider value={user}>
+        <SearchItem />
         <Router>
           <Switch>
-              <Route exact path="/" render={() => <h1>Path route is empty</h1>} />
+            <Route exact path="/" render={() => <h1>Path route is empty</h1>} />
             <Route path="/login">
               <LoginForm currentUser={user} updateCurrentUser={changeUser} />
             </Route>
@@ -27,13 +28,12 @@ function App() {
             </Route>
 
             <Route path="/register">
-              <RegisterForm currentUser={user} updateCurrentUser={changeUser}/>
+              <RegisterForm currentUser={user} updateCurrentUser={changeUser} />
             </Route>
-              <Route path="/" render={() => <h1>No path was chosen</h1>} />
+            <Route path="/" render={() => <h1>No path was chosen</h1>} />
           </Switch>
         </Router>
       </UserContext.Provider>
-      <SearchItem />
     </div>
   );
 }
