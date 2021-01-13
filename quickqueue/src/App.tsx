@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { LoginForm } from "./components/LoginForm";
 import { StoreFront } from "./components/StoreFront";
+import { RegisterForm } from "./components/RegisterForm";
 import { User } from "./models/Users";
 import { SearchItem } from "./components/SearchItem";
 
@@ -14,16 +15,25 @@ function App() {
   return (
     <div className="App">
       <UserContext.Provider value={user}>
+        <SearchItem />
         <Router>
-          <Route path="/login">
-            <LoginForm currentUser={user} updateCurrentUser={changeUser} />
-          </Route>
-          <Route path="/store">
-            <StoreFront />
-          </Route>
+          <Switch>
+            <Route exact path="/" render={() => <h1>Path route is empty</h1>} />
+            <Route path="/login">
+              <LoginForm currentUser={user} updateCurrentUser={changeUser} />
+            </Route>
+
+            <Route path="/store">
+              <StoreFront />
+            </Route>
+
+            <Route path="/register">
+              <RegisterForm currentUser={user} updateCurrentUser={changeUser} />
+            </Route>
+            <Route path="/" render={() => <h1>No path was chosen</h1>} />
+          </Switch>
         </Router>
       </UserContext.Provider>
-      <SearchItem />
     </div>
   );
 }
