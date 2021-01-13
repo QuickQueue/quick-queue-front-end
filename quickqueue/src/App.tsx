@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import './App.css';
+
 import { LoginForm } from './components/LoginForm'
 import { StoreFront } from './components/StoreFront'
 import { User } from './models/Users';
+import { SearchItem } from './components/SearchItem';
 
 export const UserContext = React.createContext<any>(undefined);
+
+
+
 
 function App() {
   
@@ -26,6 +31,7 @@ function App() {
 
         </Router>
       </UserContext.Provider>
+      <SearchItem/>
     </div>
   );
 }
