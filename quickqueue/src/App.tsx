@@ -5,6 +5,7 @@ import { LoginForm } from "./components/LoginForm";
 import { StoreFront } from "./components/StoreFront";
 import { RegisterForm } from "./components/RegisterForm";
 import { User } from "./models/Users";
+import { SearchItem } from "./components/SearchItem";
 
 export const UserContext = React.createContext<any>(undefined);
 
@@ -32,6 +33,7 @@ function App() {
           </Switch>
         </Router>
       </UserContext.Provider>
+      <SearchItem />
     </div>
   );
 }
