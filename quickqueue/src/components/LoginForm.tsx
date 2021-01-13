@@ -27,6 +27,10 @@ export const LoginForm: React.FunctionComponent<ILoginProps> = (props) => {
     return username.length > 0 && password.length > 0;
   }
 
+  function goToRegister(){
+    history.push("/register")
+  }
+
   const submitLogin = async (e: SyntheticEvent) => {
     let credentials = {
       username: username,
@@ -101,6 +105,7 @@ export const LoginForm: React.FunctionComponent<ILoginProps> = (props) => {
         <button
           className="registerNavButton"
           type="button"
+          onClick={goToRegister}
         >
           Register for New Account
           Not working ATM
