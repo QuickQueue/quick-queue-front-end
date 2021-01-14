@@ -20,6 +20,8 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import clsx from "clsx";
+import {CartDrawerItems} from "./CartDrawerItems";
+import {getAllProduct} from "../services/product-functions"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -129,7 +131,8 @@ export const NavBar: React.FunctionComponent<any> = (props) => {
         <ShoppingCartOutlinedIcon />
         </IconButton>
         <Drawer open={cart.isOpen} onClose={toggleCart(false)} anchor="right">
-          {listMenuItems()}
+          <CartDrawerItems getItemList={getAllProduct}/>
+          {/* <CartDrawerItems/> */}
         </Drawer>
       </Toolbar>
     </AppBar>
