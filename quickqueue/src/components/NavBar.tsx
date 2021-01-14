@@ -18,6 +18,7 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -45,12 +46,22 @@ export const NavBar: React.FunctionComponent<any> = (props) => {
   const [menu, setMenu] = React.useState({
     isOpen: false,
   });
+  const [cart, setCart] = React.useState({
+    isOpen: false,
+  });
 
   const toggleDrawer = (isOpen: boolean) => (event: React.MouseEvent) => {
     if (event.type === "keydown") {
       return;
     }
     setMenu({ isOpen });
+  };
+
+  const toggleCart = (isOpen: boolean) => (event: React.MouseEvent) => {
+    if (event.type === "keydown") {
+      return;
+    }
+    setCart({ isOpen });
   };
 
   const listMenuItems = () => (
@@ -108,6 +119,18 @@ export const NavBar: React.FunctionComponent<any> = (props) => {
         <Typography variant="h6" className={classes.title}>
           Quick Queue
         </Typography>
+        <IconButton
+          edge="end"
+          className={classes.menuButton}
+          color="inherit"
+          aria-label="menu"
+          onClick={toggleCart(true)}
+        >
+        <ShoppingCartOutlinedIcon />
+        </IconButton>
+        <Drawer open={cart.isOpen} onClose={toggleCart(false)} anchor="right">
+          {listMenuItems()}
+        </Drawer>
       </Toolbar>
     </AppBar>
   );
