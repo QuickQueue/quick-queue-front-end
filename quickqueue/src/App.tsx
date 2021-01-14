@@ -34,7 +34,7 @@ function App() {
               <ItemView />
             </Route>
 
-            <Route path="/" render={() => <h1>No path was chosen</h1>} />
+            <Route path="/" render={() => <h1>No valid path was chosen double check the url spelling</h1>} />
           </Switch>
         </Router>
       </UserContext.Provider>
