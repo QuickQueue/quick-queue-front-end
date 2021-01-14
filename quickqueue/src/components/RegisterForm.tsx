@@ -6,8 +6,7 @@ import logo from "../assets/LogoTemp.png";
 import { UserContext } from "../App";
 import { User } from "../models/Users";
 interface IRegisterProps {
-  updateCurrentUser: (u: User) => void;
-  currentUser: User;
+  isCustomer: boolean
 }
 
 export const RegisterForm: React.FunctionComponent<IRegisterProps> = (props) => {
@@ -58,8 +57,11 @@ export const RegisterForm: React.FunctionComponent<IRegisterProps> = (props) => 
       firstName,
       lastName,
       email,
-      role : "CUSTOMER"
+      role : (props.isCustomer)?"CUSTOMER":"SHOPPER"
     }
+
+    let requestURL:string = (props.isCustomer)?"http://localhost:8080/customers/register"
+    :"http://localhost:8080/shoppers/register"
 
     e.preventDefault();
 
@@ -67,7 +69,7 @@ export const RegisterForm: React.FunctionComponent<IRegisterProps> = (props) => 
     try {
       axios
         .post(
-          "http://localhost:8080/customers/register",
+          requestURL,
           JSON.stringify(newUser),
           {
             headers: {
