@@ -1,9 +1,8 @@
 import React, { SyntheticEvent, useState, useContext } from "react";
 import { useHistory, Redirect } from "react-router-dom";
-import axios from "axios";
 import { UserContext } from "../App";
 import { NavBar } from "./NavBar";
-import { ProductDetail } from "./ProductDetail";
+import { ProductContainer } from "./ProductContainer";
 
 export const StoreFront: React.FunctionComponent<any> = (props) => {
   let currentUser = useContext(UserContext);
@@ -12,7 +11,7 @@ export const StoreFront: React.FunctionComponent<any> = (props) => {
   return currentUser ? (
     <>
       <NavBar />
-      <ProductDetail />
+      <ProductContainer />
     </>
   ) : (
     <Redirect to="/login" />
