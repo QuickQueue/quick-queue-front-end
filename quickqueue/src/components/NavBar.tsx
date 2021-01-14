@@ -3,13 +3,22 @@ import {
   AppBar,
   Button,
   IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
   Menu,
   MenuItem,
   Toolbar,
   Typography,
 } from "@material-ui/core";
+import Drawer from "@material-ui/core/Drawer";
+import Divider from "@material-ui/core/Divider";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import MailIcon from "@material-ui/icons/Mail";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,21 +31,65 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
+    list: {
+      width: 250,
+    },
+    fullList: {
+      width: "auto",
+    },
   })
 );
 
 export const NavBar: React.FunctionComponent<any> = (props) => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [menu, setMenu] = React.useState({
+    isOpen: false,
+  });
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const toggleDrawer = (isOpen: boolean) => (event: React.MouseEvent) => {
+    if (event.type === "keydown") {
+      return;
+    }
+    setMenu({ isOpen });
   };
 
-  const handleClose = () => {
-    console.log("close");
-    setAnchorEl(null);
-  };
+  const listMenuItems = () => (
+    <div
+      className={clsx(classes.list)}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      // onKeyDown={toggleDrawer(false)}
+    >
+      <List>
+        {["Profile", "Log out"].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {[
+          "All Products",
+          "Electronics",
+          "Jewelry",
+          "Men Clothing",
+          "Women Clothing",
+        ].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -45,21 +98,13 @@ export const NavBar: React.FunctionComponent<any> = (props) => {
           className={classes.menuButton}
           color="inherit"
           aria-label="menu"
-          onClick={handleClick}
+          onClick={toggleDrawer(true)}
         >
           <MenuIcon />
         </IconButton>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>My account</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
-        </Menu>
+        <Drawer open={menu.isOpen} onClose={toggleDrawer(false)}>
+          {listMenuItems()}
+        </Drawer>
         <Typography variant="h6" className={classes.title}>
           Quick Queue
         </Typography>
