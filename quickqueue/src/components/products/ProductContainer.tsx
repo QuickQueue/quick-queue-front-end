@@ -1,24 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Product } from "../../models/Product";
 import { ProductCard } from "./ProductCard";
 import { getAllProduct } from "../../services/product-functions";
 import { Grid } from "@material-ui/core";
 
-export const ProductContainer: React.FunctionComponent<any> = (props) => {
-  const [products, setProducts] = useState<Product[]>();
+interface IProductListProps {
+  currentProductList: Product[];
+  setCurrentProductList: (p: Product[]) => void;
+}
+
+export const ProductContainer: React.FunctionComponent<IProductListProps> = (
+  props
+) => {
+  // const [products, setProducts] = useState<Product[]>();
 
   //load once in the first render
   useEffect(() => {
+    //let isMounted = true;
     let getProducts = async () => {
       let listProducts = await getAllProduct();
       //console.log(listProducts);
-      setProducts(listProducts);
+      props.setCurrentProductList(listProducts);
     };
     getProducts();
   }, []);
+
+  useEffect(() => {
+    return () => {
+      // Clean up st
+    };
+  });
+
   let productDisplays;
-  if (products) {
-    productDisplays = products.map((product, i) => {
+  if (props.currentProductList) {
+    productDisplays = props.currentProductList.map((product, i) => {
       return (
         <Grid xs={4} item key={i}>
           <ProductCard product={product} />

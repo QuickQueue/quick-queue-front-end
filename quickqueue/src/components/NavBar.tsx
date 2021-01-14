@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   AppBar,
   Button,
@@ -19,6 +19,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import clsx from "clsx";
+import { ProductListContext } from "./StoreFront";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const NavBar: React.FunctionComponent<any> = (props) => {
   const classes = useStyles();
+  let currentList = useContext(ProductListContext);
   const [menu, setMenu] = React.useState({
     isOpen: false,
   });
