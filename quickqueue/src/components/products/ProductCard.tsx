@@ -15,16 +15,18 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { Product } from "../models/Product";
+import { Product } from "../../models/Product";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       maxWidth: 345,
+      minWidth: 275,
       margin: "2%",
     },
     media: {
-      height: 0,
+      height: 150,
       paddingTop: "56.25%", // 16:9
     },
     expand: {
@@ -56,6 +58,10 @@ export const ProductCard: React.FunctionComponent<IProductDetailProps> = (
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
+  const addToCart = () => {
+    console.log(props.product);
+  };
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -71,6 +77,9 @@ export const ProductCard: React.FunctionComponent<IProductDetailProps> = (
         <Typography variant="body2" color="textSecondary" component="p">
           {props.product.price}$
         </Typography>
+        <Button variant="contained" color="primary" onClick={addToCart}>
+          Add to cart
+        </Button>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
