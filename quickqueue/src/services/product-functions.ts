@@ -10,6 +10,15 @@ export const getAllProduct = async (): Promise<Product[]> => {
     throw new Error(e.message);
   }
 };
+export const get2Products = async (): Promise<Product[]> => {
+  try {
+    let res = await client.get("/products?limit=2");
+
+    return res.data;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
 
 export const getProductCategories = async (): Promise<string[]> => {
   try {
