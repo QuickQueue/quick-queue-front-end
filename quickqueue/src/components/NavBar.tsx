@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   AppBar,
   Button,
@@ -20,6 +20,16 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import clsx from "clsx";
 import { ProductListContext } from "./StoreFront";
+import { Product } from "../models/Product";
+import {
+  getAllProduct,
+  getProductByCategory,
+} from "../services/product-functions";
+
+interface IProductListProps {
+  currentProductList: Product[];
+  setCurrentProductList: (p: Product[]) => void;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,12 +51,36 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const NavBar: React.FunctionComponent<any> = (props) => {
+export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
   const classes = useStyles();
-  let currentList = useContext(ProductListContext);
+  //let currentList = useContext(ProductListContext);
+  //let isFirstMounted = true;
   const [menu, setMenu] = React.useState({
     isOpen: false,
   });
+
+  const handleClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    text: string
+  ) => {
+    let category = text.toLowerCase();
+    let getProductCategory = async (text: string) => {
+      let listProducts = await getProductByCategory(text);
+      props.setCurrentProductList(listProducts);
+    };
+
+    let getAllProducts = async () => {
+      let listAllProducts = await getAllProduct();
+      props.setCurrentProductList(listAllProducts);
+    };
+
+    if (category === "all products") {
+      getAllProducts();
+    } else {
+      getProductCategory(category);
+    }
+    //isFirstMounted = false;
+  };
 
   const toggleDrawer = (isOpen: boolean) => (event: React.MouseEvent) => {
     if (event.type === "keydown") {
@@ -65,9 +99,6 @@ export const NavBar: React.FunctionComponent<any> = (props) => {
       <List>
         {["Profile", "Log out"].map((text, index) => (
           <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}
@@ -77,20 +108,29 @@ export const NavBar: React.FunctionComponent<any> = (props) => {
         {[
           "All Products",
           "Electronics",
-          "Jewelry",
+          "Jewelery",
           "Men Clothing",
           "Women Clothing",
         ].map((text, index) => (
           <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText
+              primary={text}
+              onClick={(e) => handleClick(e, text)}
+            />
           </ListItem>
         ))}
       </List>
     </div>
   );
+  //load once in the first render
+  useEffect(() => {
+    let getProducts = async () => {
+      let listProducts = await getAllProduct();
+      props.setCurrentProductList(listProducts);
+    };
+    //if (isFirstMounted)
+    getProducts();
+  }, []);
 
   return (
     <AppBar position="static">

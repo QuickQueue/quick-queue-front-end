@@ -60,6 +60,7 @@ export const ProductCard: React.FunctionComponent<IProductDetailProps> = (
 
   const addToCart = () => {
     console.log(props.product);
+    alert(`You just added ${props.product.title}`);
   };
 
   const handleExpandClick = () => {

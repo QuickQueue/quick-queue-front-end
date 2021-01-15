@@ -13,20 +13,15 @@ export const ProductListContext = React.createContext<any>(undefined);
 
 export const StoreFront: React.FunctionComponent<any> = (props) => {
   let currentUser = useContext(UserContext);
-  //console.log(currentUser);
-  const [productList, setProductList] = useState<Product[]>();
 
-  useEffect(() => {
-    let getProducts = async () => {
-      let listProducts = await getProductByCategory();
-      setProductList(listProducts);
-    };
-    setTimeout(async () => await getProducts(), 5000);
-  }, []);
+  const [productList, setProductList] = useState<Product[]>();
 
   return currentUser ? (
     <ProductListContext.Provider value={productList}>
-      <NavBar />
+      <NavBar
+        currentProductList={productList}
+        setCurrentProductList={setProductList}
+      />
       <ProductContainer
         currentProductList={productList}
         setCurrentProductList={setProductList}
