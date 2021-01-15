@@ -63,6 +63,7 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     text: string
   ) => {
+    e.preventDefault();
     let category = text.toLowerCase();
     let getProductCategory = async (text: string) => {
       let listProducts = await getProductByCategory(text);
