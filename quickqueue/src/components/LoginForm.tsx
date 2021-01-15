@@ -4,6 +4,7 @@ import axios from "axios";
 import "../styles/LoginForm.css";
 import logo from "../assets/LogoTemp.png";
 import { User } from "../models/Users";
+
 interface ILoginProps {
   updateCurrentUser: (u: User) => void;
   currentUser: User;
@@ -27,8 +28,8 @@ export const LoginForm: React.FunctionComponent<ILoginProps> = (props) => {
     return username.length > 0 && password.length > 0;
   }
 
-  function goToRegister(){
-    history.push("/register")
+  function goToRegister() {
+    history.push("/register");
   }
 
   const submitLogin = async (e: SyntheticEvent) => {
@@ -107,8 +108,7 @@ export const LoginForm: React.FunctionComponent<ILoginProps> = (props) => {
           type="button"
           onClick={goToRegister}
         >
-          Register for New Account
-          Not working ATM
+          Register for New Account Not working ATM
         </button>
       </div>
     </form>
