@@ -1,18 +1,32 @@
-import React, { SyntheticEvent, useState, useContext } from "react";
+import React, { SyntheticEvent, useState, useContext, useEffect } from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import { UserContext } from "../App";
+import { Product } from "../models/Product";
+import {
+  getAllProduct,
+  getProductByCategory,
+} from "../services/product-functions";
 import { NavBar } from "./NavBar";
-import { ProductContainer } from "./ProductContainer";
+import { ProductContainer } from "./products/ProductContainer";
+
+export const ProductListContext = React.createContext<any>(undefined);
 
 export const StoreFront: React.FunctionComponent<any> = (props) => {
   let currentUser = useContext(UserContext);
-  console.log(currentUser);
+
+  const [productList, setProductList] = useState<Product[]>();
 
   return currentUser ? (
-    <>
-      <NavBar />
-      <ProductContainer />
-    </>
+    <ProductListContext.Provider value={productList}>
+      <NavBar
+        currentProductList={productList}
+        setCurrentProductList={setProductList}
+      />
+      <ProductContainer
+        currentProductList={productList}
+        setCurrentProductList={setProductList}
+      />
+    </ProductListContext.Provider>
   ) : (
     <Redirect to="/login" />
   );
