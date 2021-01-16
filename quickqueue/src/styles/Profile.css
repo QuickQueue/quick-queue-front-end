@@ -15,7 +15,7 @@
 
 }
 
-h1 {
+.profileOwner > h1 {
 
   margin: 16px 0;
   text-align-last: left;
@@ -23,7 +23,7 @@ h1 {
 
 }
 
-p {
+.profileDetails > p {
 
   margin: 10px 0;
   text-align-last: left;

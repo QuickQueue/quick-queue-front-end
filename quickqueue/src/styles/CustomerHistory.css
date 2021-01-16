@@ -1,0 +1,20 @@
+.historyComponentWrapper {
+
+  margin: 0 auto;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+h2 {
+
+  text-align-last: left;
+
+}
+
+#root > div > div > div.historyWrapper > div.historyComponentWrapper > div {
+
+  width: 140px;
+
+}

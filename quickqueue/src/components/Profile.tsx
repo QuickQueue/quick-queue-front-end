@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { UserContext } from '../App';
 import { useHistory, Redirect } from "react-router-dom";
 import { ProfileNavBar } from './ProfileNavBar';
+import { CustomerHistory } from './CustomerHistory';
 import '../styles/Profile.css'
 
 export const Profile: React.FunctionComponent<any> = () => {
@@ -33,7 +34,7 @@ export const Profile: React.FunctionComponent<any> = () => {
 
         <div className='historyWrapper'>
           <div className='topBorder'></div>
-
+          <CustomerHistory />
         </div>
 
       </div>
