@@ -31,6 +31,7 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
 
   const handleChange = (e) => {
 
+    console.log(currentUser.userId);
     setOrderStatus(e.target.value);
 
     axios.get(
@@ -44,11 +45,28 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
       .then((res) => {
 
         userHistory = res.data;
+        console.log(userHistory)
+        renderHistory(userHistory)
 
       })
 
   };
 
+  const renderHistory = async (userHistory) => {
+
+    if(userHistory.length === 0) {
+
+      return console.log("No Order FOund")
+      // {<p>Please try another status from the drop down menu.</p>}
+
+    } else {
+
+      return <p>heya we workin here!</p>
+
+    }
+
+    return null;
+  }
 
   return (
 
@@ -72,6 +90,11 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
           <MenuItem value={'PENDING'}>Pending Orders</MenuItem>
         </Select>
       </FormControl>
+
+      <div className='historyContainer'>
+
+          
+      </div>
 
     </div>
 
