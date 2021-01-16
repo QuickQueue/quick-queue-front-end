@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import { UserContext } from '../App';
 import { useHistory, Redirect } from "react-router-dom";
 import { ProfileNavBar } from './ProfileNavBar';
+import '../styles/Profile.css'
 
 export const Profile: React.FunctionComponent<any> = () => {
 
   let currentUser = useContext(UserContext)
+  console.log(currentUser)
 
-  //add nav bar
-  // create onclick links for log out and store and redirect
   //style nav bar
   //create subheading for history
   //dropdown for active orders first
@@ -16,15 +16,35 @@ export const Profile: React.FunctionComponent<any> = () => {
 
   return currentUser ? (
     <>
-    <ProfileNavBar/>
+      <ProfileNavBar />
 
-    <h1>THIS YOUR PROFILE HOMIEEE</h1>
+      <div className='profileWrapper'>
+
+        <div className='profileOwner'>
+
+          <h1>{`${currentUser.firstName} ${currentUser.lastName}`}</h1>
+
+          <div className='profileDetails'>
+            <p>{`Email: ${currentUser.email}`}</p>
+            <p>{`Account Type: ${currentUser.userRole}`}</p>
+            <p>{`Account Number: ${currentUser.userId}`}</p>
+          </div>
+        </div>
+
+        <div className='historyWrapper'>
+          <div className='topBorder'></div>
+
+        </div>
+
+      </div>
+
+
     </>
 
   ) : (
 
-    <Redirect to="/login" />
-    
-  );
+      <Redirect to="/login" />
+
+    );
 
 }

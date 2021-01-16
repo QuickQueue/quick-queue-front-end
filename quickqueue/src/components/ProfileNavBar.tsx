@@ -81,7 +81,6 @@ export const ProfileNavBar: React.FunctionComponent<any> = (props) => {
       className={clsx(classes.list)}
       role="presentation"
       onClick={toggleDrawer(false)}
-    // onKeyDown={toggleDrawer(false)}
     >
       <List>
         {["Store", "Log out"].map((text, index) => (
@@ -112,7 +111,7 @@ export const ProfileNavBar: React.FunctionComponent<any> = (props) => {
           {listMenuItems()}
         </Drawer>
         <Typography variant="h6" className={classes.title}>
-          Quick Queue
+          Your Quick Queue Profile
         </Typography>
       </Toolbar>
     </AppBar>
