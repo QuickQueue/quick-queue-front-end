@@ -9,7 +9,7 @@ import {
 import { NavBar } from "./NavBar";
 import { ProductContainer } from "./products/ProductContainer";
 
-export const ProductListContext = React.createContext<any>(undefined);
+export const ProductListContext = React.createContext<Product[]>(undefined);
 
 export const StoreFront: React.FunctionComponent<any> = (props) => {
   let currentUser = useContext(UserContext);

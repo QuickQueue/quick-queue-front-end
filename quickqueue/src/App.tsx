@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { LoginForm } from "./components/LoginForm";
+import { ItemView } from "./components/ItemView";
 import { StoreFront } from "./components/StoreFront";
 import { RegisterForm } from "./components/RegisterForm";
 import { User } from "./models/Users";
@@ -37,7 +38,12 @@ function App() {
             <Route path="/register">
               <RegisterForm isCustomer={true} />
             </Route>
-            <Route path="/" render={() => <h1>No path was chosen</h1>} />
+
+            <Route path="/items">
+              <ItemView />
+            </Route>
+
+            <Route path="/" render={() => <h1>No valid path was chosen double check the url spelling</h1>} />
           </Switch>
         </Router>
       </UserContext.Provider>
