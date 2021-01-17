@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import axios from "axios";
 import { UserContext } from "../App";
 import '../styles/CustomerHistory.css'
@@ -24,18 +24,18 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
 
   const classes = useStyles();
   const [orderStatus, setOrderStatus] = React.useState('');
+  const [currentOrderDisplay, updateOrderDisplay] = React.useState([]);
 
   let currentUser = useContext(UserContext);
+  let ordersActive = [];
+  let ordersPending = [];
+  let ordersClosed = [];
+  let onScreenOrders = [];
 
-  let userHistory = [];
-
-  const handleChange = (e) => {
-
-    console.log(currentUser.userId);
-    setOrderStatus(e.target.value);
+  useEffect(() => {
 
     axios.get(
-      `http://localhost:8080/orders/history/${orderStatus}/${currentUser.userId}`,
+      `http://localhost:8080/orders/history/active/${currentUser.userId}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -44,29 +44,84 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
     )
       .then((res) => {
 
-        userHistory = res.data;
-        console.log(userHistory)
-        renderHistory(userHistory)
+        ordersActive = res.data;
 
       })
+      axios.get(
+        `http://localhost:8080/orders/history/closed/${currentUser.userId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((res) => {
+  
+          ordersClosed = res.data;
+  
+        })
+        axios.get(
+          `http://localhost:8080/orders/history/pending/${currentUser.userId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+          .then((res) => {
+    
+            ordersPending = res.data;
+    
+          })
+    
+  }, [])
 
-  };
+  useEffect(() => {
 
-  const renderHistory = async (userHistory) => {
+    console.log(onScreenOrders + "AT USE EFFECT")
+    updateOrderDisplay(onScreenOrders)
 
-    if(userHistory.length === 0) {
+  }, [orderStatus])
+  
+  const handleChange = (e) => {
+    
+    if(e.target.value === 'active') {
 
-      return console.log("No Order FOund")
-      // {<p>Please try another status from the drop down menu.</p>}
+      onScreenOrders = ordersActive
+      console.log(e.target.value)
+      console.log(ordersActive)
+
+    } else if (e.target.value === 'pending') {
+
+      onScreenOrders = ordersPending
+      console.log(e.target.value)
+      console.log(ordersPending)
+    } else if (e.target.value === 'closed') {
+
+      onScreenOrders = ordersClosed
+      console.log(e.target.value)
+      console.log(ordersClosed)
 
     } else {
 
-      return <p>heya we workin here!</p>
+      console.log("NO ORDER HISTORY")
 
     }
+    console.log(onScreenOrders + "AT HANDLE CHANGE")
+    console.log(orderStatus);
+    
+  };
 
-    return null;
-  }
+  // const renderHistory = () => {
+  //   return userHistory.length == 0 ?
+  //     (
+  //       <h3>No Orders Found</h3>
+  //       // <p>Please try another status from the drop down menu.</p>
+  //     ) : (
+  //       <p>${userHistory[0]}</p>
+  //     )
+
+  // }
 
   return (
 
@@ -87,13 +142,15 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
           </MenuItem>
           <MenuItem value={'active'}>Active Orders</MenuItem>
           <MenuItem value={'closed'}>Completed Orders</MenuItem>
-          <MenuItem value={'PENDING'}>Pending Orders</MenuItem>
+          <MenuItem value={'pending'}>Pending Orders</MenuItem>
         </Select>
       </FormControl>
 
       <div className='historyContainer'>
+       {
+         <p>{onScreenOrders[0] || 'empty'}</p>
+       }
 
-          
       </div>
 
     </div>
