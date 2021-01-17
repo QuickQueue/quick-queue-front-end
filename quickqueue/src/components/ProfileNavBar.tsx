@@ -20,17 +20,6 @@ import MailIcon from "@material-ui/icons/Mail";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import clsx from "clsx";
-import { ProductListContext } from "./StoreFront";
-import { Product } from "../models/Product";
-import {
-  getAllProduct,
-  getProductByCategory,
-} from "../services/product-functions";
-
-interface IProductListProps {
-  currentProductList: Product[];
-  setCurrentProductList: (p: Product[]) => void;
-}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,39 +41,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
+export const ProfileNavBar: React.FunctionComponent<any> = (props) => {
+
   const classes = useStyles();
-  //let currentList = useContext(ProductListContext);
-  //let isFirstMounted = true;
+  const history = useHistory()
+
   const [menu, setMenu] = React.useState({
     isOpen: false,
   });
-
-  const history = useHistory()
-
-  const handleClick = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    text: string
-  ) => {
-    e.preventDefault();
-    let category = text.toLowerCase();
-    let getProductCategory = async (text: string) => {
-      let listProducts = await getProductByCategory(text);
-      props.setCurrentProductList(listProducts);
-    };
-
-    let getAllProducts = async () => {
-      let listAllProducts = await getAllProduct();
-      props.setCurrentProductList(listAllProducts);
-    };
-
-    if (category === "all products") {
-      getAllProducts();
-    } else {
-      getProductCategory(category);
-    }
-    //isFirstMounted = false;
-  };
 
   const toggleDrawer = (isOpen: boolean) => (event: React.MouseEvent) => {
     if (event.type === "keydown") {
@@ -93,7 +57,7 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
     setMenu({ isOpen });
   };
 
-  const profileClick = (
+  const handleClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     text: string
   ) => {
@@ -101,9 +65,9 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
     e.preventDefault();
     let clicked = text.toLowerCase()
 
-    if (clicked === 'profile') {
+    if (clicked === 'store') {
 
-      history.push("/profile");
+      history.push("/store");
 
     } else if (clicked === 'log out') {
 
@@ -117,27 +81,9 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
       className={clsx(classes.list)}
       role="presentation"
       onClick={toggleDrawer(false)}
-      // onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {["Profile", "Log out"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText
-              primary={text}
-              onClick={(e) => profileClick(e, text)}
-              />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {[
-          "All Products",
-          "Electronics",
-          "Jewelery",
-          "Men Clothing",
-          "Women Clothing",
-        ].map((text, index) => (
+        {["Store", "Log out"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemText
               primary={text}
@@ -148,15 +94,6 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
       </List>
     </div>
   );
-  //load once in the first render
-  useEffect(() => {
-    let getProducts = async () => {
-      let listProducts = await getAllProduct();
-      props.setCurrentProductList(listProducts);
-    };
-    //if (isFirstMounted)
-    getProducts();
-  }, []);
 
   return (
     <AppBar position="static">
@@ -174,7 +111,7 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
           {listMenuItems()}
         </Drawer>
         <Typography variant="h6" className={classes.title}>
-          Quick Queue
+          Your Quick Queue Profile
         </Typography>
       </Toolbar>
     </AppBar>

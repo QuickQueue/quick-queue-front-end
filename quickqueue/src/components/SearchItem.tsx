@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './SearchItem.css';
+import '../styles/SearchItem.css'
 
 export const SearchItem: React.StatelessComponent<{}> = () => {
     return (
