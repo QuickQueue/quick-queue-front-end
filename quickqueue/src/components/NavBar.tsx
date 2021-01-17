@@ -194,8 +194,7 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
         <ShoppingCartOutlinedIcon />
         </IconButton>
         <Drawer open={cart.isOpen} onClose={toggleCart(false)} anchor="right">
-          <CartDrawerItems getItemList={get2Products}/>
-          {/* <CartDrawerItems/> */}
+          <CartDrawerItems getItemList={get2Products} cartContents={props.currentProductList}/>
         </Drawer>
       </Toolbar>
     </AppBar>

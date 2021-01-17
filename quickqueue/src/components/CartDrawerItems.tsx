@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import {ProductListContext} from "./StoreFront";
 import axios from "axios";
 import {Product} from "../models/Product";
 import { List, ListItem, ListItemIcon, ListItemText, } from "@material-ui/core";
@@ -7,11 +8,12 @@ import Divider from "@material-ui/core/Divider";
 
 interface ICartViewProps {
   getItemList: () => Promise<Product[]>;
-  // cartContents:Product[]
+  cartContents:Product[]
 }
 
 export const CartDrawerItems: React.FunctionComponent<ICartViewProps> = (props) => {
   const history = useHistory();
+  const items = React.useContext(ProductListContext)
 
   const [itemList, updateItemList] = useState<Product[]>([]);
   const [totalPrice, updatePrice] = useState<Number>(0);
@@ -19,12 +21,13 @@ export const CartDrawerItems: React.FunctionComponent<ICartViewProps> = (props) 
 
   
   useEffect(() => {
-    props.getItemList().then((res) =>{
-      updateItemList(res)
-    })
+    // props.getItemList().then((res) =>{
+    //   updateItemList(res)
+    // })
     
+    updateItemList(items)
     
-  }, []);
+  }, [items]);
   
   useEffect(() => {
     updatePrice(
