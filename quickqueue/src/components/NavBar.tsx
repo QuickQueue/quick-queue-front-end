@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import {
   AppBar,
   Button,
@@ -61,6 +62,8 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
     isOpen: false,
   });
 
+  const history = useHistory()
+
   const handleClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     text: string
@@ -98,6 +101,24 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
     }
     setCart({ isOpen });
   };
+  const profileClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    text: string
+  ) => {
+
+    e.preventDefault();
+    let clicked = text.toLowerCase()
+
+    if (clicked === 'profile') {
+
+      history.push("/profile");
+
+    } else if (clicked === 'log out') {
+
+      console.log("user trying to logout")
+
+    }
+  }
 
   const listMenuItems = () => (
     <div
@@ -109,7 +130,10 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
       <List>
         {["Profile", "Log out"].map((text, index) => (
           <ListItem button key={text}>
-            <ListItemText primary={text} />
+            <ListItemText
+              primary={text}
+              onClick={(e) => profileClick(e, text)}
+              />
           </ListItem>
         ))}
       </List>
