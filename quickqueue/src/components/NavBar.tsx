@@ -19,13 +19,12 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import clsx from "clsx";
+import {CartDrawerItems} from "./CartDrawerItems";
+import {getAllProduct, get2Products, getProductByCategory} from "../services/product-functions"
 import { ProductListContext } from "./StoreFront";
 import { Product } from "../models/Product";
-import {
-  getAllProduct,
-  getProductByCategory,
-} from "../services/product-functions";
 
 interface IProductListProps {
   currentProductList: Product[];
@@ -57,6 +56,9 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
   //let currentList = useContext(ProductListContext);
   //let isFirstMounted = true;
   const [menu, setMenu] = React.useState({
+    isOpen: false,
+  });
+  const [cart, setCart] = React.useState({
     isOpen: false,
   });
 
@@ -93,6 +95,12 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
     setMenu({ isOpen });
   };
 
+  const toggleCart = (isOpen: boolean) => (event: React.MouseEvent) => {
+    if (event.type === "keydown") {
+      return;
+    }
+    setCart({ isOpen });
+  };
   const profileClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     text: string
@@ -176,6 +184,18 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
         <Typography variant="h6" className={classes.title}>
           Quick Queue
         </Typography>
+        <IconButton
+          edge="end"
+          className={classes.menuButton}
+          color="inherit"
+          aria-label="menu"
+          onClick={toggleCart(true)}
+        >
+        <ShoppingCartOutlinedIcon />
+        </IconButton>
+        <Drawer open={cart.isOpen} onClose={toggleCart(false)} anchor="right">
+          <CartDrawerItems getItemList={get2Products} cartContents={props.currentProductList}/>
+        </Drawer>
       </Toolbar>
     </AppBar>
   );
