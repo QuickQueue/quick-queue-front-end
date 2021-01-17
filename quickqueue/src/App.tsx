@@ -6,6 +6,7 @@ import { StoreFront } from "./components/StoreFront";
 import { RegisterForm } from "./components/RegisterForm";
 import { User } from "./models/Users";
 import { Payment } from "./components/Payment";
+import { Profile } from "./components/Profile";
 
 export const UserContext = React.createContext<any>(undefined);
 
@@ -27,6 +28,10 @@ function App() {
             </Route>
             <Route path="/payment">
               <Payment />
+            </Route>
+
+            <Route path="/profile">
+              <Profile />
             </Route>
 
             <Route path="/register">
