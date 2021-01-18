@@ -30,32 +30,32 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
 
   useEffect(() => {
 
-        axios.get(
-          `http://localhost:8080/orders/history/${orderStatus}/${currentUser.userId}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-          .then((res) => {
-    
-            // ordersPending = res.data;
-            let temp:any[] = res.data
-            console.log(res.data)
-            console.log(typeof(res.data[0]))
-            updateOrderDisplay(temp)
-    
-          })
+    axios.get(
+      `http://localhost:8080/orders/history/${orderStatus}/${currentUser.userId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => {
 
-    console.log(orderStatus+" in se effect vefore update")
-    
+        // ordersPending = res.data;
+        let temp: any[] = res.data
+        console.log(res.data)
+        console.log(typeof (res.data[0]))
+        updateOrderDisplay(temp)
+
+      })
+
+    console.log(orderStatus + " in se effect vefore update")
+
   }, [orderStatus])
 
   const handleChange = (e: React.ChangeEvent<any>) => {
     setOrderStatus(e.target.value)
     console.log(e.target.value + "target val is")
-    console.log(e+ "event is")
+    console.log(e + "event is")
   };
 
   return (
@@ -82,18 +82,38 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
       </FormControl>
 
       <div className='historyContainer'>
-       {
-         <p>{currentOrderDisplay.map((hist)=>{
-           return(<p>
-             {hist.orderId}
-             </p>)
-         }
-          )
-          
-          
-          || 'empty'}</p>
-       }
-
+        <div className='historyCard'>
+          {
+            currentOrderDisplay.length > 0 ? (
+              <div>{currentOrderDisplay.map((hist) => {
+                return (
+                  <div className='historyCardContents'>
+                    <div className='historyIdAndTimeWrapper'>
+                      <p className='historyOrderId'>
+                        {'Order ID: ' + hist.orderId}
+                      </p>
+                      <p className='historyOrderSubmitted'>
+                        {'Submitted: ' + new Date(hist.orderSubmitted).toLocaleDateString("en-US")}
+                      </p>
+                    </div>
+                    <p className='historyOrderNetAmount'>
+                      {'Items Subtotal: $' + hist.orderNetAmount}
+                    </p>
+                    <p className='historyOrderTaxAmount'>
+                      {'GST: $' + hist.order_tax_amount}
+                    </p>
+                    <p className='historyOrderGrossAmount'>
+                      {'Total: CDN $' + hist.order_gross_amount}
+                    </p>
+                  </div>
+                )
+              })}
+              </div>
+            ) : (
+                <p>No order history to display</p>
+              )
+          }
+        </div>
       </div>
 
     </div>
