@@ -17,6 +17,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Product } from "../../models/Product";
 import Button from "@material-ui/core/Button";
+import axios from "axios";
+import { UserContext } from "../../App";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,11 +57,29 @@ interface IProductDetailProps {
 export const ProductCard: React.FunctionComponent<IProductDetailProps> = (
   props
 ) => {
+  let currentUser = React.useContext(UserContext);
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   const addToCart = () => {
-    //console.log(props.product);
+    axios.post(
+    `http://localhost:8080/customers/addItem/${props.product.id}/${1}/${currentUser.userId}`,
+    // JSON.stringify(order),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+    .then((res) => {
+
+      // ordersPending = res.data;
+      // let temp:any[] = res.data
+      // console.log(res.data)
+      // console.log(typeof(res.data[0]))
+      // updateOrderDisplay(temp)
+
+    })
     alert(`You just added ${props.product.title}`);
   };
 
