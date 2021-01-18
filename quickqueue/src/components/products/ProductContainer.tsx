@@ -3,6 +3,7 @@ import { Product } from "../../models/Product";
 import { ProductCard } from "./ProductCard";
 import { getAllProduct } from "../../services/product-functions";
 import { Grid } from "@material-ui/core";
+import '../../styles/ProductContainer.css'
 
 interface IProductListProps {
   currentProductList: Product[];
@@ -24,10 +25,10 @@ export const ProductContainer: React.FunctionComponent<IProductListProps> = (
   }
 
   return (
-    <>
+    <div className='productContainer'>
       <Grid container spacing={3}>
         {productDisplays}
       </Grid>
-    </>
+    </div>
   );
 };

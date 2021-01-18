@@ -17,6 +17,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Product } from "../../models/Product";
 import Button from "@material-ui/core/Button";
+import '../../styles/ProductContainer.css'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,8 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: "2%",
     },
     media: {
-      height: 150,
-      paddingTop: "56.25%", // 16:9
+      height: 150
     },
     expand: {
       transform: "rotate(0deg)",
