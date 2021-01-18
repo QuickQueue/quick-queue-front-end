@@ -13,7 +13,7 @@ import { AutorenewTwoTone } from '@material-ui/icons';
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: 200
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -40,7 +40,6 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
     )
       .then((res) => {
 
-        // ordersPending = res.data;
         let temp: any[] = res.data
         updateOrderDisplay(temp)
 
@@ -64,7 +63,7 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
           id="demo-simple-select-outlined"
           value={orderStatus}
           onChange={handleChange}
-          label="orderStatus"
+          label="Order Status"
         >
           <MenuItem value="">
             <em>None</em>

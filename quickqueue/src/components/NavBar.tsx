@@ -181,7 +181,7 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
           {listMenuItems()}
         </Drawer>
         <Typography variant="h6" className={classes.title}>
-          Quick Queue
+          QuickQueue
         </Typography>
         <IconButton
           edge="end"
