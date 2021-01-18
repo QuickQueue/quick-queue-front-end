@@ -42,20 +42,14 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
 
         // ordersPending = res.data;
         let temp: any[] = res.data
-        console.log(res.data)
-        console.log(typeof (res.data[0]))
         updateOrderDisplay(temp)
 
       })
-
-    console.log(orderStatus + " in se effect vefore update")
 
   }, [orderStatus])
 
   const handleChange = (e: React.ChangeEvent<any>) => {
     setOrderStatus(e.target.value)
-    console.log(e.target.value + "target val is")
-    console.log(e + "event is")
   };
 
   return (
