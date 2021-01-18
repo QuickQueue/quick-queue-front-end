@@ -18,3 +18,46 @@
   width: 140px;
 
 }
+
+.historyCard,
+.historyContainer,
+.historyComponentWrapper {
+
+  width: 90vw;
+
+}
+
+.historyCard > div {
+
+  width: 90vw;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+}
+
+.historyCardContents {
+
+  width: 300px;
+  border: 3px solid #209CEE;
+  border-radius: 8px;
+  margin: 20px 20px;
+  padding: 10px 20px;
+  text-align: left;
+
+}
+
+.historyCardContents > p {
+
+  margin: 8px 0;
+
+}
+
+.historyIdAndTimeWrapper {
+
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+
+}
