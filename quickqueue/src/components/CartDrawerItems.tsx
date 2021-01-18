@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { ProductListContext } from "./StoreFront";
 import axios from "axios";
+import { UserContext } from "../App";
 import { Product } from "../models/Product";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
@@ -15,28 +16,79 @@ export const CartDrawerItems: React.FunctionComponent<ICartViewProps> = (
   props
 ) => {
   const history = useHistory();
-  const items = React.useContext(ProductListContext);
+  const currentUser = React.useContext(UserContext);
+  const allItems = React.useContext(ProductListContext);
 
+  const [itemsFromDB, updateItemFromDB ] = useState<CartItemObject []>([]);
   const [itemList, updateItemList] = useState<Product[]>([]);
   const [totalPrice, updatePrice] = useState<Number>(0);
 
-  useEffect(() => {
-    // props.getItemList().then((res) =>{
-    //   updateItemList(res)
-    // })
+  class ItemId {
+    cartId: number
+    itemId: number
+  }
 
-    updateItemList(items);
-  }, [items]);
+  class CartItemObject {
+      cartItemId:ItemId
+      quantity:number
+  }
 
   useEffect(() => {
-    updatePrice(itemList.reduce((a, b) => a + b.price * (b.amount || 1), 0));
+    async function getCart() {
+    try {
+      axios
+        .get(
+          `http://localhost:8080/cart/active/${currentUser.userId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          // let temp:any[] = res.data
+          console.log(JSON.stringify(res.data))
+          console.log(JSON.parse(JSON.stringify(res.data.cartItems)))
+          updateItemFromDB(JSON.parse(JSON.stringify(res.data.cartItems)));
+          // updateItemFromDB(res.data.cartItems);
+        });
+    } catch (e) {
+    }
+  }
+    getCart()
+
+    console.log(itemsFromDB);
+  }, [allItems, currentUser.userId]);
+
+  useEffect(() => {
+    console.log(itemsFromDB + " in new use effect")
+    let prodArr :Product[] = []
+    itemsFromDB.forEach((item, i)=>{
+      console.log(item)
+      let prodFromFakeStore = allItems.find(e => {
+        return e.id === item.cartItemId.itemId
+      })
+      console.log(prodFromFakeStore)
+      let prod: Product = prodFromFakeStore;
+      console.log(prod)
+      prod.amount = item.quantity;
+      prodArr.push(prod)
+    })
+    
+    updateItemList(prodArr);
+
+
+  }, [itemsFromDB]);
+
+  useEffect(() => {
+    updatePrice(itemList && itemList.reduce((a, b) => a + b.price * (b.amount || 1), 0));
   }, [itemList]);
 
   console.log(totalPrice);
 
   return (
     <List>
-      {itemList.map((item: Product) => (
+      {itemList && itemList.map((item: Product) => (
         <ListItem button key={item.title}>
           {`Amount ${item.amount || 1}`}
           <img src={item.image} alt={item.title} width="100" height="100" />
@@ -44,7 +96,7 @@ export const CartDrawerItems: React.FunctionComponent<ICartViewProps> = (
         </ListItem>
       ))}
       <Divider />
-      <ListItem>{`Total $${totalPrice.toFixed(2)}`}</ListItem>
+      <ListItem>{`Total $${totalPrice && totalPrice.toFixed(2)}`}</ListItem>
       <Divider />
       <ListItem>
         <button
