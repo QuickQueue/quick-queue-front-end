@@ -19,10 +19,14 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
-import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import clsx from "clsx";
-import {CartDrawerItems} from "./CartDrawerItems";
-import {getAllProduct, get2Products, getProductByCategory} from "../services/product-functions"
+import { CartDrawerItems } from "./CartDrawerItems";
+import {
+  getAllProduct,
+  get2Products,
+  getProductByCategory,
+} from "../services/product-functions";
 import { ProductListContext } from "./StoreFront";
 import { Product } from "../models/Product";
 
@@ -62,7 +66,7 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
     isOpen: false,
   });
 
-  const history = useHistory()
+  const history = useHistory();
 
   const handleClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -105,20 +109,15 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     text: string
   ) => {
-
     e.preventDefault();
-    let clicked = text.toLowerCase()
+    let clicked = text.toLowerCase();
 
-    if (clicked === 'profile') {
-
+    if (clicked === "profile") {
       history.push("/profile");
-
-    } else if (clicked === 'log out') {
-
-      console.log("user trying to logout")
-
+    } else if (clicked === "log out") {
+      console.log("user trying to logout");
     }
-  }
+  };
 
   const listMenuItems = () => (
     <div
@@ -133,7 +132,7 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
             <ListItemText
               primary={text}
               onClick={(e) => profileClick(e, text)}
-              />
+            />
           </ListItem>
         ))}
       </List>
@@ -191,10 +190,13 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
           aria-label="menu"
           onClick={toggleCart(true)}
         >
-        <ShoppingCartOutlinedIcon />
+          <ShoppingCartOutlinedIcon />
         </IconButton>
         <Drawer open={cart.isOpen} onClose={toggleCart(false)} anchor="right">
-          <CartDrawerItems getItemList={get2Products} cartContents={props.currentProductList}/>
+          <CartDrawerItems
+            getItemList={get2Products}
+            cartContents={props.currentProductList}
+          />
         </Drawer>
       </Toolbar>
     </AppBar>
