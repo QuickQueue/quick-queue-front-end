@@ -6,6 +6,7 @@ import { UserContext } from "../App";
 import { Product } from "../models/Product";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
+import '../styles/CartDrawerItems.css'
 
 interface ICartViewProps {
   getItemList: () => Promise<Product[]>;
@@ -90,7 +91,7 @@ export const CartDrawerItems: React.FunctionComponent<ICartViewProps> = (
     <List>
       {itemList && itemList.map((item: Product) => (
         <ListItem button key={item.title}>
-          {`Amount ${item.amount || 1}`}
+          {`Qty. ${item.amount || 1}`}
           <img src={item.image} alt={item.title} width="100" height="100" />
           <ListItemText primary={item.title} />
         </ListItem>

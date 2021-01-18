@@ -71,7 +71,7 @@ export const ProfileNavBar: React.FunctionComponent<any> = (props) => {
 
     } else if (clicked === 'log out') {
 
-      console.log("user trying to logout")
+      history.push("/login");
 
     }
   }
