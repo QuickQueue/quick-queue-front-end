@@ -115,7 +115,7 @@ export const NavBar: React.FunctionComponent<IProductListProps> = (props) => {
     if (clicked === "profile") {
       history.push("/profile");
     } else if (clicked === "log out") {
-      console.log("user trying to logout");
+      history.push("/login");
     }
   };
 
