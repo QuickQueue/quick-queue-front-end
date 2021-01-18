@@ -66,7 +66,7 @@ export const CartDrawerItems: React.FunctionComponent<ICartViewProps> = (
     let prodArr :Product[] = []
     itemsFromDB.forEach((item, i)=>{
       console.log(item)
-      let prodFromFakeStore = allItems.find(e => {
+      let prodFromFakeStore = allItems && allItems.find(e => {
         return e.id === item.cartItemId.itemId
       })
       console.log(prodFromFakeStore)
