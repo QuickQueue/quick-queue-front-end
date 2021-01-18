@@ -64,7 +64,7 @@ export const ProductCard: React.FunctionComponent<IProductDetailProps> = (
 
   const addToCart = () => {
     axios.post(
-    `http://localhost:8080/customers/addItem/${props.product.id}/${1}/${currentUser.userId}`,
+    `http://ec2-18-218-116-207.us-east-2.compute.amazonaws.com:10000/customers/addItem/${props.product.id}/${1}/${currentUser.userId}`,
     // JSON.stringify(order),
     {
       headers: {

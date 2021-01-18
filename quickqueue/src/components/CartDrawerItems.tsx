@@ -39,7 +39,7 @@ export const CartDrawerItems: React.FunctionComponent<ICartViewProps> = (
     try {
       axios
         .get(
-          `http://localhost:8080/cart/active/${currentUser.userId}`,
+          `http://ec2-18-218-116-207.us-east-2.compute.amazonaws.com:10000/cart/active/${currentUser.userId}`,
           {
             headers: {
               "Content-Type": "application/json",
