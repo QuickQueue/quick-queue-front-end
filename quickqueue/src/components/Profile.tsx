@@ -10,11 +10,6 @@ export const Profile: React.FunctionComponent<any> = () => {
   let currentUser = useContext(UserContext)
   console.log(currentUser)
 
-  //style nav bar
-  //create subheading for history
-  //dropdown for active orders first
-
-
   return currentUser ? (
     <>
       <ProfileNavBar />

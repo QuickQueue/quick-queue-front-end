@@ -34,12 +34,12 @@
 
 }
 
-.loginButton {
+.loginButton,
+.registerNavButton {
 
-  width: 178px;
+  width: 200px;
   height: 24px;
   margin-top: 10px;
-  margin-bottom: 30px;
   color: #ffff;
   background-color: #209CEE;
   border: 2px solid #209CEE;
@@ -50,9 +50,16 @@
 
 }
 
-.loginButton:hover {
+.loginButton:hover,
+.registerNavButton:hover {
 
   background-color: #1772af;
   border: 2px solid #1772af;
+
+}
+
+.registerNavButton {
+
+  margin-bottom: 30px;
 
 }
