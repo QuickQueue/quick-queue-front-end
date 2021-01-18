@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import { LoginForm } from "./components/LoginForm";
 import { ItemView } from "./components/ItemView";
@@ -19,7 +19,8 @@ function App() {
       <UserContext.Provider value={user}>
         <Router>
           <Switch>
-            <Route exact path="/" render={() => <h1>Path route is empty</h1>} />
+            <Route exact path="/" render={() => <Redirect to="/login" />} />
+                      
             <Route path="/login">
               <LoginForm currentUser={user} updateCurrentUser={changeUser} />
             </Route>
