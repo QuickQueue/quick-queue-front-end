@@ -27,41 +27,11 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
   const [currentOrderDisplay, updateOrderDisplay] = React.useState([]);
 
   let currentUser = useContext(UserContext);
-  let ordersActive = [];
-  let ordersPending = [];
-  let ordersClosed = [];
-  let onScreenOrders = [];
 
   useEffect(() => {
 
-    axios.get(
-      `http://localhost:8080/orders/history/active/${currentUser.userId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((res) => {
-
-        ordersActive = res.data;
-
-      })
-      axios.get(
-        `http://localhost:8080/orders/history/closed/${currentUser.userId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-        .then((res) => {
-  
-          ordersClosed = res.data;
-  
-        })
         axios.get(
-          `http://localhost:8080/orders/history/pending/${currentUser.userId}`,
+          `http://localhost:8080/orders/history/${orderStatus}/${currentUser.userId}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -70,58 +40,23 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
         )
           .then((res) => {
     
-            ordersPending = res.data;
+            // ordersPending = res.data;
+            let temp:any[] = res.data
+            console.log(res.data)
+            console.log(typeof(res.data[0]))
+            updateOrderDisplay(temp)
     
           })
+
+    console.log(orderStatus+" in se effect vefore update")
     
-  }, [])
-
-  useEffect(() => {
-
-    console.log(onScreenOrders + "AT USE EFFECT")
-    updateOrderDisplay(onScreenOrders)
-
   }, [orderStatus])
-  
-  const handleChange = (e) => {
-    
-    if(e.target.value === 'active') {
 
-      onScreenOrders = ordersActive
-      console.log(e.target.value)
-      console.log(ordersActive)
-
-    } else if (e.target.value === 'pending') {
-
-      onScreenOrders = ordersPending
-      console.log(e.target.value)
-      console.log(ordersPending)
-    } else if (e.target.value === 'closed') {
-
-      onScreenOrders = ordersClosed
-      console.log(e.target.value)
-      console.log(ordersClosed)
-
-    } else {
-
-      console.log("NO ORDER HISTORY")
-
-    }
-    console.log(onScreenOrders + "AT HANDLE CHANGE")
-    console.log(orderStatus);
-    
+  const handleChange = (e: React.ChangeEvent<any>) => {
+    setOrderStatus(e.target.value)
+    console.log(e.target.value + "target val is")
+    console.log(e+ "event is")
   };
-
-  // const renderHistory = () => {
-  //   return userHistory.length == 0 ?
-  //     (
-  //       <h3>No Orders Found</h3>
-  //       // <p>Please try another status from the drop down menu.</p>
-  //     ) : (
-  //       <p>${userHistory[0]}</p>
-  //     )
-
-  // }
 
   return (
 
@@ -148,7 +83,15 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
 
       <div className='historyContainer'>
        {
-         <p>{onScreenOrders[0] || 'empty'}</p>
+         <p>{currentOrderDisplay.map((hist)=>{
+           return(<p>
+             {hist.orderId}
+             </p>)
+         }
+          )
+          
+          
+          || 'empty'}</p>
        }
 
       </div>
