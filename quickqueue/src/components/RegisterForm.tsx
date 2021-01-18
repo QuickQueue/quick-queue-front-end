@@ -60,8 +60,8 @@ export const RegisterForm: React.FunctionComponent<IRegisterProps> = (props) => 
       role : (props.isCustomer)?"CUSTOMER":"SHOPPER"
     }
 
-    let requestURL:string = (props.isCustomer)?"http://localhost:8080/customers/register"
-    :"http://localhost:8080/shoppers/register"
+    let requestURL:string = (props.isCustomer)?"http://ec2-18-218-116-207.us-east-2.compute.amazonaws.com:10000/customers/register"
+    :"http://ec2-18-218-116-207.us-east-2.compute.amazonaws.com:10000/shoppers/register"
 
     e.preventDefault();
 

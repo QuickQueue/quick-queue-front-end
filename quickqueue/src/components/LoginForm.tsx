@@ -44,7 +44,7 @@ export const LoginForm: React.FunctionComponent<ILoginProps> = (props) => {
     try {
       axios
         .post(
-          "http://localhost:8080/customers/login",
+          "http://ec2-18-218-116-207.us-east-2.compute.amazonaws.com:10000/customers/login",
           JSON.stringify(credentials),
           {
             headers: {

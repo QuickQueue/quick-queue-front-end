@@ -31,7 +31,7 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
   useEffect(() => {
 
     axios.get(
-      `http://localhost:8080/orders/history/${orderStatus}/${currentUser.userId}`,
+      `http://ec2-18-218-116-207.us-east-2.compute.amazonaws.com:10000/orders/history/${orderStatus}/${currentUser.userId}`,
       {
         headers: {
           "Content-Type": "application/json",
