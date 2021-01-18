@@ -108,7 +108,7 @@ export const LoginForm: React.FunctionComponent<ILoginProps> = (props) => {
           type="button"
           onClick={goToRegister}
         >
-          Register for New Account Not working ATM
+          Register for New Account
         </button>
       </div>
     </form>

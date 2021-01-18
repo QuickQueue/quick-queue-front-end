@@ -14,7 +14,10 @@ code {
     monospace;
 }
 
-p {
+p,
+button,
+label,
+select {
 
   font-family: 'Montserrat', sans-serif !important;
 

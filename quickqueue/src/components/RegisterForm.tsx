@@ -99,7 +99,7 @@ export const RegisterForm: React.FunctionComponent<IRegisterProps> = (props) => 
           type="text"
           id="inputFirstName"
           name="inputFirstName"
-          placeholder="Enter Your firstName"
+          placeholder="Enter Your First Name"
           value={firstName}
           onChange={handleFirstNameChange}
         />
@@ -110,7 +110,7 @@ export const RegisterForm: React.FunctionComponent<IRegisterProps> = (props) => 
           type="text"
           id="inputLastName"
           name="inputLastName"
-          placeholder="Enter Your LastName"
+          placeholder="Enter Your Last Name"
           value={lastName}
           onChange={handleLastNameChange}
         />
@@ -148,6 +148,14 @@ export const RegisterForm: React.FunctionComponent<IRegisterProps> = (props) => 
           value={password}
           onChange={handlePasswordChange}
         />
+      </div>
+
+      <div className="accountTypeWrapper">
+        <label htmlFor="inputAccountType">What kind of account would you like to create?</label>
+        <select name='inputAccountType'>
+          <option value="customer">Customer</option>
+          <option value="shopper">Shopper</option>
+        </select>
       </div>
 
       <div className="buttonWrapper">

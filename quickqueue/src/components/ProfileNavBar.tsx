@@ -111,7 +111,7 @@ export const ProfileNavBar: React.FunctionComponent<any> = (props) => {
           {listMenuItems()}
         </Drawer>
         <Typography variant="h6" className={classes.title}>
-          Your Quick Queue Profile
+          Your QuickQueue Profile
         </Typography>
       </Toolbar>
     </AppBar>
