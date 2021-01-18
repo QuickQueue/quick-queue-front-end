@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import axios from "axios";
 import { UserContext } from "../App";
 import '../styles/CustomerHistory.css'
@@ -24,31 +24,39 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
 
   const classes = useStyles();
   const [orderStatus, setOrderStatus] = React.useState('');
+  const [currentOrderDisplay, updateOrderDisplay] = React.useState([]);
 
   let currentUser = useContext(UserContext);
 
-  let userHistory = [];
+  useEffect(() => {
 
-  const handleChange = (e) => {
+        axios.get(
+          `http://localhost:8080/orders/history/${orderStatus}/${currentUser.userId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+          .then((res) => {
+    
+            // ordersPending = res.data;
+            let temp:any[] = res.data
+            console.log(res.data)
+            console.log(typeof(res.data[0]))
+            updateOrderDisplay(temp)
+    
+          })
 
-    setOrderStatus(e.target.value);
+    console.log(orderStatus+" in se effect vefore update")
+    
+  }, [orderStatus])
 
-    axios.get(
-      `http://localhost:8080/orders/history/${orderStatus}/${currentUser.userId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((res) => {
-
-        userHistory = res.data;
-
-      })
-
+  const handleChange = (e: React.ChangeEvent<any>) => {
+    setOrderStatus(e.target.value)
+    console.log(e.target.value + "target val is")
+    console.log(e+ "event is")
   };
-
 
   return (
 
@@ -69,9 +77,24 @@ export const CustomerHistory: React.FunctionComponent<any> = (props) => {
           </MenuItem>
           <MenuItem value={'active'}>Active Orders</MenuItem>
           <MenuItem value={'closed'}>Completed Orders</MenuItem>
-          <MenuItem value={'PENDING'}>Pending Orders</MenuItem>
+          <MenuItem value={'pending'}>Pending Orders</MenuItem>
         </Select>
       </FormControl>
+
+      <div className='historyContainer'>
+       {
+         <p>{currentOrderDisplay.map((hist)=>{
+           return(<p>
+             {hist.orderId}
+             </p>)
+         }
+          )
+          
+          
+          || 'empty'}</p>
+       }
+
+      </div>
 
     </div>
 
