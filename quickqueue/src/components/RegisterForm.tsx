@@ -62,6 +62,7 @@ export const RegisterForm: React.FunctionComponent<IRegisterProps> = (props) => 
 
     let requestURL:string = (props.isCustomer)?"http://ec2-18-218-116-207.us-east-2.compute.amazonaws.com:10000/customers/register"
     :"http://ec2-18-218-116-207.us-east-2.compute.amazonaws.com:10000/shoppers/register"
+    
 
     e.preventDefault();
 
